@@ -17,7 +17,7 @@ Crystal structure: Crystal structure description
 
 ## Method description
 
-## Conformer generation
+## Conformer generation # LH: Less focus required on conformers? IS: Agreed, but no harm in allowing optional fields, they're not wrong just not that useful
 
 * Method - Method used for conformer generation.
 * Software - Name of software used for conformer generation.
@@ -70,7 +70,7 @@ Crystal structure: Crystal structure description
 * Space group numbers list - The specific space groups used for structure generation.
 * Stage (preliminary or final) - Indicates whether this is the final or a preliminary method used for structure generation.
 
-## Structure optimisation
+## Structure optimisation # LH: BT feedback - Want to capture more details on parameters applied for calculations. E.g. for periodic DFT - K-point grid / energy cutoff etc. IS: I'd agree, and ideally I'd like to be able to capture gas phase vs periodic DFT methods. DMACRYS based methods use gas-phase DFT coupled with dispersion FF for lattice, which is har to capture with this. LH: BT feedback - Want to capture single point energies. Unable to in this format. IJS: borrowing from TCOD, I think criteria for stopping the minimisation should be considered
 
 * Method - Method used for structure optimisation.
 * Software - Name of software used for structure optimisation.
@@ -120,13 +120,13 @@ Crystal structure: Crystal structure description
 * Citation - Citation for an article or other publication that describes one or more of the methods used for this prediction.
 * Identifier/DOI - A persistent identifier (for example a DOI) indicating the location of an article or other publication that describes one or more of the methods used for this prediction.
 
-## Structural properties metadata
+## Structural properties metadata # LH: How do we capture multiple energies for a single structure? E.g. Lattice energies calculated at multiple levels of theory. IJS: prinicpal use case would be PBE minimised structure, with single point PBE0 calc (GRACE approach). I'd imagine people would just use the PBE0 energy in that case, but would be nice to include PBE energy if possible
 
 * Simulation type - Indication of how the crystal modelling handles thermal effects (static: does not include thermal corrections of the lattice energy, or dynamic: includes thermal corrections of the lattice energy)
 * Density - Density value calculated from the predicted crystal cell and contents.
 * Temperature - The temperature at which the structure is calculated.
 * Pressure - The pressure at which the structure is calculated.
-* Conformer identifier - External identifier or label of a conformer used in a CSP calculation
+* Conformer identifier - External identifier or label of a conformer used in a CSP calculation  # LH notes this wasn't used by submitters. Can see niche use caes, but is definitely an option.
 * Absolute energy - The total (absolute) energy of the crystal structure, with respect to gas-phase atoms.
 
 ## Lattice energy
