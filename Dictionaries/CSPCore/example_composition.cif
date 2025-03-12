@@ -1,0 +1,93 @@
+#######################################################################
+#
+#     Example 1: Inorganic Crystal with Single Fixed Composition
+#
+#######################################################################
+data_ABC
+_csp_chemical_name ABC
+_csp_structure_generation_space_group_number_list "all"
+_csp_structure_generation_method "Evolutionary Algorithm"
+_csp_density_lower_limit 750
+_csp_density_upper_limit 1500
+# No need to specify but equivalent to:
+# _csp_composition_calculation "fixed"
+# _csp_composition_types "A B C"
+# _csp_composition_coefficients "1 1 1" # A1 B1 C1
+
+# END
+
+#######################################################################
+#
+#     Example 2: Inorganic Crystal with Multiple Fixed Compositions
+#
+#######################################################################
+data_ABC
+_csp_chemical_name AxByCz
+_csp_structure_generation_space_group_number_list "all"
+_csp_structure_generation_method "Evolutionary Algorithm"
+_csp_density_lower_limit 750
+_csp_density_upper_limit 1500
+_csp_composition_calculation "fixed"
+_csp_composition_types "A B C"
+loop_
+    _csp_composition_coefficients
+    "1 1 1" # A1 B1 C1
+    "1 1 2" # A1 B1 C2
+    "1 2 1" # A1 B2 C1
+    "2 1 1" # A2 B1 C1
+    "1 2 2" # A1 B2 C2
+    "2 1 2" # A2 B1 C2
+    "2 2 1" # A2 B2 C1
+    "2 2 2" # A2 B2 C2
+
+# END
+
+#######################################################################
+#
+#     Example 3: Inorganic Crystal with Variable-Compositions
+#
+#######################################################################
+data_ABC
+_csp_chemical_name AxByCz
+_csp_structure_generation_space_group_number_list "all"
+_csp_structure_generation_method "Evolutionary Algorithm"
+_csp_density_lower_limit 750
+_csp_density_upper_limit 1500
+_csp_composition_calculation "variable"
+_csp_maximum_number_of_components 12
+_csp_minimum_number_of_components 2
+_csp_composition_types "A B C"
+loop_
+    _csp_composition_coefficients # xA + yB + zC with 2<x+y+z<12
+    "1 0 0"
+    "0 1 0"
+    "0 0 1"
+
+# END
+
+#######################################################################
+#
+#     Example 4: Molecular Crystal with Variable-Compositions
+#
+#######################################################################
+data_MOL1_water
+_csp_chemical_name MOL1-hydrate
+_csp_structure_generation_space_group_number_list "all"
+_csp_structure_generation_method "Evolutionary Algorithm"
+_csp_density_lower_limit 750
+_csp_density_upper_limit 1500
+_csp_composition_calculation "variable"
+loop_
+    _csp_group_label
+    _csp_group_atoms
+    MOL1 "C1 C2 H1 H2"
+    water "O1 H3 H4"
+_csp_minimum_number_of_components 4
+_csp_minimum_number_of_components 2
+_csp_composition_types "MOL1 water"
+loop_
+    _csp_composition_coefficients # x(1*MOL1+ 0*water) + y(0*MOL1+ 1*water) with 2<x+y<4
+    1 0
+    0 1
+
+# END
