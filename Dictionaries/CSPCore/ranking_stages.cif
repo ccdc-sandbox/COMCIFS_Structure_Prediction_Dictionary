@@ -1,0 +1,64 @@
+#######################################################################
+#
+#     Example 1: Multistep Ranking Approach
+#
+#######################################################################
+data_method
+_csp_chemical_name urea
+_csp_structure_generation_space_group_number_list all
+_csp_structure_generation_method "Particle Swarm Optimisation"
+
+loop_
+    _csp_ranking_stage
+    _csp_ranking_stage_id
+    _csp_ranking_method
+    _csp_calculation_type
+    _csp_ff_name
+    _csp_ff_intramolecular_term
+    _csp_ff_electrostatic_term
+    _csp_ff_vdw_term
+    _csp_ff_parameterization_method
+    _csp_ff_qm_parameterization_functional
+    _csp_ff_qm_parameterization_basis_set
+    _csp_dft_exchange_correlation_functional_type
+    _csp_dft_exchange_correlation_functional_name
+    _csp_dft_dispersion_correction
+    0 "ff1" "Forcefield" "Optimisation" "GAFF" "Bonded-Parameters" "Point-Charges" "LJ(epsilon,sigma)" "BCC" "AM1" . . . .
+    1 "ff2" "Forcefield" "Optimisation" "Psi_mol" "Isolated Molecule Energy" "Multipoles" "Buckingham" "GDMA" "PBE0" "6-31G(d,p)" . . .
+    2 "dft1" "DFT" "Optimisation" . . . . . . . "GGA" "PBE" .
+    3 "dft2" "DFT" "Single-Point" . . . . . . . "Hybrid" "PBE0" "TS"
+
+# END
+
+#######################################################################
+#
+#     Additional Parameters for each method
+#
+#######################################################################
+data_ff1
+_csp_ranking_stage 0
+_csp_ranking_stage_id ff1
+...
+
+# END
+
+data_ff2
+_csp_ranking_stage 1
+_csp_ranking_stage_id ff2
+...
+
+# END
+
+data_dft1
+_csp_ranking_stage 2
+_csp_ranking_stage_id dft1
+...
+
+# END
+
+data_dft2
+_csp_ranking_stage 3
+_csp_ranking_stage_id dft2
+...
+
+# END
