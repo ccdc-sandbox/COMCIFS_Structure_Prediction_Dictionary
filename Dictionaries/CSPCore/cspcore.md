@@ -2,12 +2,12 @@
 
 ## Input System Fields
 
-| Data Field                   | Type | Definition                                                                                                                                                                       | Constraints | Units | Example |
-|------------------------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|-------|---------|
-| `_csp_chemical_name`         | char | See name_common and name_systematic from Core CIF dictionary.                                                                                                                    |             |       |         |
-| `_csp_chemical_formula`      | char | Need to decide which from Core CIF dictionary are appropriate for describing a component and which for describing overall structure (moiety vs sum - also IUPAC and structural). |             |       |         |
-| `_csp_chemical_identifier`   | char | InChI / InChI Key / InChI Version.                                                                                                                                               |             |       |         |
-| `_csp_chemical_connectivity` | char | Potentially using existing chemical_conn data items. <br> Might also want to capture SMILES or a MOL file representation.                                                        |             |       |         |
+| Category | Data Field                   | Type | Definition                                                                                                                                                                       | Constraints | Units | Example |
+|----|------------------------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|-------|---------|
+| Chemical | `name`         | char | See name_common and name_systematic from Core CIF dictionary.                                                                                                                    |             |       |         |
+| Chemical | `formula`      | char | Need to decide which from Core CIF dictionary are appropriate for describing a component and which for describing overall structure (moiety vs sum - also IUPAC and structural). |             |       |         |
+| Chemical | `identifier`   | char | InChI / InChI Key / InChI Version.                                                                                                                                               |             |       |         |
+| Chemical | `connectivity` | char | Potentially using existing chemical_conn data items. <br> Might also want to capture SMILES or a MOL file representation.                                                        |             |       |         |
 
 ## Structure Generation Methods
 
