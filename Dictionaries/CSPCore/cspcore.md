@@ -35,10 +35,7 @@
 | `_csp_stopping_structures_range`                    | numb           | The number of low-energy structures to be considering in the convergence criteria.                                                                  | >0                    |                     | 1000                                                                                                                                            |
 
 ### Evolutionary Algorithms
-
-For these fields to be used, the following conditions must be respected:
-
-1. `_csp_structure_generation_method` "Evolutionary Algorithm"
+Category `_csp_ea_[]`: Sub group for CSP Structure Generation methods that use Evolutionary Algorithms. For these fields to be used, the `_csp_structure_generation_method` must be set to "Evolutionary Algorithm".
 
 | Data Field                            | Type | Definition                                                                                                                                                     | Constraints | Units | Example |
 |:--------------------------------------|:-----|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -53,9 +50,7 @@ For these fields to be used, the following conditions must be respected:
 
 ### Particle Swarm Optimisation Algorithms
 
-For these fields to be used, the following conditions must be respected:
-
-1. `_csp_structure_generation_method` "Particle Swarm Optimisation"
+Category `_csp_pso_[]`: Sub group for CSP Structure Generation methods that use Particle Swarm Optimisation. For these fields to be used, the `_csp_structure_generation_method` must be set to "Particle Swarm Optimisation".
 
 | Data Field                       | Type | Definition                                                                                                                                        | Constraints | Units | Example |
 |:---------------------------------|:-----|:--------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -70,9 +65,7 @@ For these fields to be used, the following conditions must be respected:
 
 ### Simulated Annealing
 
-For these fields to be used, the following conditions must be respected:
-
-1. `_csp_structure_generation_method` "Simulated Annealing"
+Category `_csp_sa_[]`: Sub group for CSP Structure Generation methods that use Simulated Annealing. For these fields to be used, the `_csp_structure_generation_method` must be set to "Simulated Annealing".
 
 | Data Field                    | Type | Definition                                                                                       | Constraints | Units | Example |
 |:------------------------------|:-----|:-------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -82,21 +75,18 @@ For these fields to be used, the following conditions must be respected:
 
 ### Monte Carlo Parallel Tempering
 
-For these fields to be used, the following conditions must be respected:
+Category `_csp_mcpt_[]`: Sub group for CSP Structure Generation methods that use Monte Carlo Parallel tempering. For these fields to be used, the `_csp_structure_generation_method` must be set to "Monte Carlo Parallel tempering".
 
-1. `_csp_structure_generation_method` "Monte Carlo Parallel tempering"
-
-| Data Field                     | Type | Definition                                                                                                                                                                                                 | Constraints                   | Units | Example         |
-|:-------------------------------|:-----|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------|:------|:----------------|
-| `_csp_mcpt_number_of_replicas` | numb | The number of independent Monte Carlo simulations (replicas) running in parallel at different temperatures.                                                                                                | >1                            |       | 3               |
-| `_csp_mcpt_temperature_range`  | list | The range of temperatures (minimum and maximum) at which the replicas are run. Temperatures are typically spaced such that there is sufficient overlap in the energy distributions for efficient exchange. | `[min_T >= 0, max_T > min_T]` | K     | `[0, 300, 600]` |
-| `_csp_mcpt_number_of_steps`    | numb | The number of Monte Carlo steps performed by each replica at its assigned temperature in each parallel tempering cycle.                                                                                    | >0                            |       | 100             |
+| Data Field                     | Type | Definition                                                                                                              | Constraints                   | Units | Example         |
+|:-------------------------------|:-----|:------------------------------------------------------------------------------------------------------------------------|:------------------------------|:------|:----------------|
+| `_csp_mcpt_number_of_replicas` | numb | The number of independent Monte Carlo simulations (replicas) running in parallel at different temperatures.             | >1                            |       | 3               |
+| `_csp_mcpt_temperatures_list`  | list | The list of temperatures at which the replicas are run.                                                                 | `[min_T >= 0, max_T > min_T]` | K     | `[0, 300, 600]` |
+| `_csp_mcpt_number_of_steps`    | numb | The number of Monte Carlo steps performed by each replica at its assigned temperature in each parallel tempering cycle. | >0                            |       | 100             |
 
 ### Random Search
 
-For these fields to be used, the following conditions must be respected:
+Category `_csp_random_[]`: Sub group for CSP Structure Generation methods that use Random, Quasi-random algorithms. For these fields to be used, the `_csp_structure_generation_method` should be set to "Random Sampling".
 
-1. `_csp_structure_generation_method` "Random Sampling"
 
 | Data Field                             | Type | Definition                                                                                            | Constraints | Units | Example                  |
 |:---------------------------------------|:-----|:------------------------------------------------------------------------------------------------------|:------------|:------|:-------------------------|
@@ -119,9 +109,7 @@ For these fields to be used, the following conditions must be respected:
 
 ### Periodic Density Functional Theory
 
-For these fields to be used, the following conditions must be respected:
-
-1. `_csp_ranking_method` "DFT"
+Category `_csp_dft_[]`: Sub group for CSP Structure Ranking methods that use DFT methods. For these fields to be used, the `_csp_ranking_method` should be set to "DFT".
 
 | Data Field                                      | Type | Definition                                                  | Constraints | Units | Example                                                                                    |
 |:------------------------------------------------|:-----|:------------------------------------------------------------|:------------|:------|:-------------------------------------------------------------------------------------------|
@@ -132,9 +120,7 @@ For these fields to be used, the following conditions must be respected:
 
 ### Forcefields
 
-For these fields to be used, the following conditions must be respected:
-
-1. `_csp_ranking_method` "Force Field"
+Category `_csp_ff_[]`: Sub group for CSP Structure Ranking methods that use forcefield or mixed inter/intra molecular methods. For these fields to be used, the `_csp_ranking_method` should be set to "Force Field".
 
 | Data Field                               | Type | Definition                                                                                                                     | Constraints | Units | Example                                                                          |
 |:-----------------------------------------|:-----|:-------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:---------------------------------------------------------------------------------|
