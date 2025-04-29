@@ -2,8 +2,8 @@
 
 ## Input System Fields
 
-| Category | Data Field                   | Type | Definition                                                                                                                                                                       | Constraints | Units | Example |
-|----|------------------------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|-------|---------|
+| Category | Data Field     | Type | Definition                                                                                                                                                                       | Constraints | Units | Example |
+|----------|----------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|-------|---------|
 | Chemical | `name`         | char | See name_common and name_systematic from Core CIF dictionary.                                                                                                                    |             |       |         |
 | Chemical | `formula`      | char | Need to decide which from Core CIF dictionary are appropriate for describing a component and which for describing overall structure (moiety vs sum - also IUPAC and structural). |             |       |         |
 | Chemical | `identifier`   | char | InChI / InChI Key / InChI Version.                                                                                                                                               |             |       |         |
