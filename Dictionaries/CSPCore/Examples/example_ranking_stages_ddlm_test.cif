@@ -1,0 +1,56 @@
+#######################################################################
+#
+#     Example 1: Multistep Ranking Approach
+#
+#######################################################################
+data_method
+_chemical.name urea
+_csp.structure_generation.space_group_number_list all
+_csp.structure_generation.method "Particle Swarm Optimisation"
+
+loop_
+    _csp.structure_ranking.stage
+    _csp.structure_ranking.stage_id
+    _csp.structure_ranking.calculation_type
+    _csp.structure_ranking.method
+    0 "gaff" "Optimisation" "Forcefield"
+    1 "psi_mol" "Optimisation" "Forcefield"
+    2 "pbe" "Optimisation" "DFT"
+    3 "pbe0" "Single-Point" "DFT"
+
+# END
+
+#######################################################################
+#
+#     Additional Parameters for each method
+#
+#######################################################################
+data_gaff
+_ff.name "GAFF"
+_ff.intramolecular_term "Bonded-Parameters"
+_ff.electrostatic_term "Point-Charges"
+_ff.vdw_term "LJ(epsilon,sigma)"
+_ff.parameterization_method "BCC"
+_ff.qm_parameterization_functional "AM1"
+# END
+
+data_psi_mol
+_ff.name "Psi_mol"
+_ff.intramolecular_term "Isolated Molecule Energy"
+_ff.electrostatic_term "Multipoles"
+_ff.vdw_term "Buckingham"
+_ff.parameterization_method "GDMA"
+_ff.qm_parameterization_functional "PBE0"
+_ff.qm_parameterization_basis_set "6-31G(d,p)"
+# END
+
+data_pbe
+_dft.exchange_correlation_functional_type "GGA"
+_dft.exchange_correlation_functional_name "PBE"
+# END
+
+data_pbe0
+_dft.exchange_correlation_functional_type "Hybrid"
+_dft.exchange_correlation_functional_name "PBE0"
+_dft.dispersion_correction "TS"
+# END

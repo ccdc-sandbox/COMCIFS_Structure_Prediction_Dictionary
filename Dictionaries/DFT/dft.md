@@ -22,10 +22,7 @@ Note, that the DDLm versions of the dictionaries were generated using an automat
 
 - Merkys, A., Mounet, N., Cepellotti, A., Marzari, N., Gražulis, S. & Pizzi, G. (2017). A posteriori metadata from automated provenance tracking: Integration of AiiDA and TCOD. *Journal of Cheminformatics*, 9. https://doi.org/10.1186/s13321-017-0242-y
 
-## Proposed Fields
-| Data Field                                      | Type | Definition                                                  | Constraints | Units | Example                                                                                    |
-|-------------------------------------------------|------|-------------------------------------------------------------|-------------|-------|--------------------------------------------------------------------------------------------|
-| `_csp_dft_exchange_correlation_functional_type` | char | Specifies the type of exchange-correlation functional used. |             |       | LDA, GGA, meta-GGA, Hybrid                                                                 |
-| `_csp_dft_exchange_correlation_functional_name` | char | Specifies the name of exchange-correlation functional used. |             |       | PBE, PBE0, SCAN                                                                            |
-| `_csp_dft_basis_set_type`                       | char | Defines the type of basis functions/pseudopoentials used.   |             |       | "Plane-waves", "PAW", "Norm-conserving", "Ultrasoft"                                       |
-| `_csp_dft_dispersion_correction`                | char | The Van der Waals correction used.                          |             |       | - Grimme-D2<br/>- Grimme-D3<br/>- Tkatchenko-Scheffler<br/>- Many-body dipersion<br/>- XDM |
+## Additional Proposed Fields
+| Category | Data Field                             | Type | Definition                                                  | Constraints | Units | Example                                                                                    |
+|----------|----------------------------------------|------|-------------------------------------------------------------|-------------|-------|--------------------------------------------------------------------------------------------|
+| DFT      | `dispersion_correction`                | char | The Van der Waals correction used.                          |             |       | - Grimme-D2<br/>- Grimme-D3<br/>- Tkatchenko-Scheffler<br/>- Many-body dipersion<br/>- XDM |

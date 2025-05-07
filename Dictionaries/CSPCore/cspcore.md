@@ -12,6 +12,7 @@
 ## Structure Generation Methods
 
 ### General Fields
+
 Category `_csp_structure_generation_[]`: Category for structure generation methods.
 
 | Category             | Data Field                                | Type           | Definition                                                                                                                                          | Constraints           | Units               | Example                                                                                                                                         |
@@ -36,7 +37,9 @@ Category `_csp_structure_generation_[]`: Category for structure generation metho
 | Structure Generation | `stopping_structures_range`               | numb           | The number of low-energy structures to be considering in the convergence criteria.                                                                  | >0                    |                     | 1000                                                                                                                                            |
 
 ### Evolutionary Algorithms
-Category `_csp_ea_[]`: Sub group for CSP Structure Generation methods that use Evolutionary Algorithms. For these fields to be used, the `_csp_structure_generation_method` must be set to "Evolutionary Algorithm".
+
+Category `_csp_ea_[]`: Sub group for CSP Structure Generation methods that use Evolutionary Algorithms. For these fields
+to be used, the `_csp_structure_generation_method` must be set to "Evolutionary Algorithm".
 
 | Category                | Data Field                    | Type | Definition                                                                                                                                                     | Constraints | Units | Example |
 |:------------------------|:------------------------------|:-----|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -51,7 +54,8 @@ Category `_csp_ea_[]`: Sub group for CSP Structure Generation methods that use E
 
 ### Particle Swarm Optimisation Algorithms
 
-Category `_csp_pso_[]`: Sub group for CSP Structure Generation methods that use Particle Swarm Optimisation. For these fields to be used, the `_csp_structure_generation_method` must be set to "Particle Swarm Optimisation".
+Category `_csp_pso_[]`: Sub group for CSP Structure Generation methods that use Particle Swarm Optimisation. For these
+fields to be used, the `_csp_structure_generation_method` must be set to "Particle Swarm Optimisation".
 
 | Category                    | Data Field              | Type | Definition                                                                                                                                        | Constraints | Units | Example |
 |:----------------------------|:------------------------|:-----|:--------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -66,7 +70,8 @@ Category `_csp_pso_[]`: Sub group for CSP Structure Generation methods that use 
 
 ### Simulated Annealing
 
-Category `_csp_sa_[]`: Sub group for CSP Structure Generation methods that use Simulated Annealing. For these fields to be used, the `_csp_structure_generation_method` must be set to "Simulated Annealing".
+Category `_csp_sa_[]`: Sub group for CSP Structure Generation methods that use Simulated Annealing. For these fields to
+be used, the `_csp_structure_generation_method` must be set to "Simulated Annealing".
 
 | Category            | Data Field            | Type | Definition                                                                                       | Constraints | Units | Example |
 |:--------------------|:----------------------|:-----|:-------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -76,7 +81,8 @@ Category `_csp_sa_[]`: Sub group for CSP Structure Generation methods that use S
 
 ### Monte Carlo Parallel Tempering
 
-Category `_csp_mcpt_[]`: Sub group for CSP Structure Generation methods that use Monte Carlo Parallel tempering. For these fields to be used, the `_csp_structure_generation_method` must be set to "Monte Carlo Parallel tempering".
+Category `_csp_mcpt_[]`: Sub group for CSP Structure Generation methods that use Monte Carlo Parallel tempering. For
+these fields to be used, the `_csp_structure_generation_method` must be set to "Monte Carlo Parallel tempering".
 
 | Category                       | Data Field           | Type | Definition                                                                                                              | Constraints                   | Units | Example         |
 |:-------------------------------|:---------------------|:-----|:------------------------------------------------------------------------------------------------------------------------|:------------------------------|:------|:----------------|
@@ -86,7 +92,8 @@ Category `_csp_mcpt_[]`: Sub group for CSP Structure Generation methods that use
 
 ### Random Search
 
-Category `_csp_random_[]`: Sub group for CSP Structure Generation methods that use Random, Quasi-random algorithms. For these fields to be used, the `_csp_structure_generation_method` should be set to "Random Sampling".
+Category `_csp_random_[]`: Sub group for CSP Structure Generation methods that use Random, Quasi-random algorithms. For
+these fields to be used, the `_csp_structure_generation_method` should be set to "Random Sampling".
 
 | Category      | Data Field                 | Type | Definition                                                                                            | Constraints | Units | Example                  |
 |:--------------|:---------------------------|:-----|:------------------------------------------------------------------------------------------------------|:------------|:------|:-------------------------|
@@ -96,7 +103,8 @@ Category `_csp_random_[]`: Sub group for CSP Structure Generation methods that u
 ## Structure Ranking Methods (High-level)
 
 ### General Fields
-Category `_csp_structure_ranking_[]`: Category for structure ranking methods.         
+
+Category `_csp_structure_ranking_[]`: Category for structure ranking methods.
 
 | Category          | Data Field               | Type | Definition                                                                    | Constraints | Units | Example                                                                                      |
 |-------------------|:-------------------------|:-----|:------------------------------------------------------------------------------|:------------|:------|:---------------------------------------------------------------------------------------------|
@@ -109,7 +117,9 @@ Category `_csp_structure_ranking_[]`: Category for structure ranking methods.
 | Structure Ranking | `stage_id`               | char | In case of multi-step approaches, the stage identifier of the ranking method. |             |       | FF, PBE, PBE0                                                                                |
 
 ### Periodic Density Functional Theory
-Category `_csp_dft_[]`: Sub group for CSP Structure Ranking methods that use DFT methods. For these fields to be used, the `_csp_ranking_method` should be set to "DFT".
+
+Category `_csp_dft_[]`: Sub group for CSP Structure Ranking methods that use DFT methods. For these fields to be used,
+the `_csp_ranking_method` should be set to "DFT".
 
 | Category | Data Field                             | Type | Definition                                                  | Constraints | Units | Example                                                                                    |
 |:---------|:---------------------------------------|:-----|:------------------------------------------------------------|:------------|:------|:-------------------------------------------------------------------------------------------|
@@ -119,7 +129,9 @@ Category `_csp_dft_[]`: Sub group for CSP Structure Ranking methods that use DFT
 | DFT      | `dispersion_correction`                | char | The Van der Waals correction used.                          |             |       | - Grimme-D2<br/>- Grimme-D3<br/>- Tkatchenko-Scheffler<br/>- Many-body dipersion<br/>- XDM |
 
 ### Forcefields
-Category `_csp_ff_[]`: Sub group for CSP Structure Ranking methods that use forcefield or mixed inter/intra molecular methods. For these fields to be used, the `_csp_ranking_method` should be set to "Force Field".
+
+Category `_csp_ff_[]`: Sub group for CSP Structure Ranking methods that use forcefield or mixed inter/intra molecular
+methods. For these fields to be used, the `_csp_ranking_method` should be set to "Force Field".
 
 | Category    | Data Field                       | Type | Definition                                                                                                                     | Constraints | Units | Example                                                                          |
 |-------------|:---------------------------------|:-----|:-------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:---------------------------------------------------------------------------------|
@@ -132,14 +144,18 @@ Category `_csp_ff_[]`: Sub group for CSP Structure Ranking methods that use forc
 | Forcefields | `qm_parameterization_basis_set`  | char | The basis set used in the gas-phase quantum mechanical calculations when fitting force field parameters.                       |             |       | "aug-cc-pVTZ", "6-31G(d,p)"                                                      |
 
 ### Semi-empirical
-Category `_csp_se_[]`: Sub group for CSP Structure Ranking methods that use semi-empirical methods. For these fields to be used, the `_csp_ranking_method` should be set to "Semi-Empirical".
+
+Category `_csp_se_[]`: Sub group for CSP Structure Ranking methods that use semi-empirical methods. For these fields to
+be used, the `_csp_ranking_method` should be set to "Semi-Empirical".
 
 | Category       | Data Field | Type | Definition                                           | Constraints | Units | Example       |
 |:---------------|:-----------|:-----|:-----------------------------------------------------|:------------|:------|:--------------|
 | Semi-Empirical | `method`   | char | Specifies the name of the Semi-empirical method used |             |       | AM1, PM3, PM6 |
 
 ### Wavefunction
-Category `_csp_wf_[]`: Sub group for CSP Structure Ranking methods that use wavefunctions methods. For these fields to be used, the `_csp_ranking_method` should be set to "Wavefunction".
+
+Category `_csp_wf_[]`: Sub group for CSP Structure Ranking methods that use wavefunctions methods. For these fields to
+be used, the `_csp_ranking_method` should be set to "Wavefunction".
 
 | Category     | Data Field                        | Type | Definition                             | Constraints | Units | Example     |
 |:-------------|:----------------------------------|:-----|:---------------------------------------|:------------|:------|:------------|
@@ -147,20 +163,24 @@ Category `_csp_wf_[]`: Sub group for CSP Structure Ranking methods that use wave
 | Wavefunction | `basis_set_type`                  | char | Defines the type of basis used.        |             |       | GTH, NAO    |
 
 ### ML Potentials
-Category `_csp_mlp_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials methods. For these fields to be used, the `_csp_ranking_method` should be set to "ML Potentials".
+
+Category `_csp_mlp_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials methods. For
+these fields to be used, the `_csp_ranking_method` should be set to "ML Potentials".
 
 | Category      | Data Field | Type | Definition                                                                                                                                 | Constraints | Units | Example             |
 |:--------------|:-----------|:-----|:-------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------------------|
 | SemiEmpirical | `method`   | char | Specifies the name of the ML Potential used. In case of ML parametrisation of classical forcefields, refer to the Forcefields dictionaries |             |       | ANI, Mace, GAP/SOAP |
 
 ### Free Energy
-Category `_csp_free_energy_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials methods. 
+
+Category `_csp_free_energy_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials.
 
 | Category    | Data Field | Type | Definition                                                          | Constraints | Units | Example |
 |:------------|:-----------|:-----|:--------------------------------------------------------------------|:------------|:------|:--------|
 | Free Energy | `method`   | char | Specifies the name of the approach used to calculate free energies. |             |       | HA, QHA |
 
 ## Single Output Structure Properties
+
 Describes the structure-specific outputs of CSP methods.
 Category `_csp_ts_properties_[]`
 

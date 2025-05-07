@@ -1,0 +1,26 @@
+#######################################################################
+#
+#     Example 1: Minimal Input
+#
+#######################################################################
+data_method
+# System
+_chemical.name urea
+
+# Structure Generation Method
+_csp.structure_generation.space_group_number_list all
+_csp.structure_generation.method "Monte Carlo Parallel Tempering"
+_csp.structure_generation.mcpt_number_of_replicas 5
+_csp.structure_generation.mcpt_temperatures_list [ 50 150 250 300 350 ]
+_csp.structure_generation.mcpt_number_of_steps 100
+_csp.structure_generation.stopping_max_structures_evaluated 10000
+_csp.structure_generation.density_lower_limit 800
+_csp.structure_generation.density_upper_limit 1600
+
+# Stracture Ranking Method
+_csp.structure_ranking.method DFT
+_csp.structure_ranking.stage_id final
+_dft.exchange_correlation_functional_type GGA
+_dft.exchange_correlation_functional_name PBE
+_dft.basis_set_type PAW
+_dft.dispersion_correction XDM
