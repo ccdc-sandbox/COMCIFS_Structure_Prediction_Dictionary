@@ -1,0 +1,682 @@
+#######################################################################
+#
+#  Group 10 (7th Blind Test on molecular crystal structure prediction)
+#
+#######################################################################
+# Methods details can be retrived in:
+#   - https://doi.org/10.1107/S2052520624007492
+#   - https://doi.org/10.1107/S2052520624007492/aw5093sup2.pdf
+
+#
+# Structure Generation
+#
+data_method
+_chemical.name XXXI
+_csp.structure_generation.space_group_number_list [ 1 2 4 5 7 9 13 14 15 18 19 20 29 33 56 60 61 76 78 92 96 144 145 169 170 ]
+_csp.structure_generation.method "Monte Carlo Parallel Tempering"
+_csp.structure_generation.software_citation https://doi.org/10.1021/acs.cgd.8b01098
+_csp.structure_generation.stopping_criteria "ML"
+
+#
+# Structure Ranking
+#
+loop_
+    _csp.structure_ranking.stage
+    _csp.structure_ranking.stage_id
+    _csp.structure_ranking.calculation_type
+    _csp.structure_ranking.method
+    0 "xff" "Optimisation" "Forcefield"
+    1 "dftb" "Optimisation" "Semi-Empirical"
+    2 "pbe0" "Optimisation" "DFT"
+    3 "free" "Ensamble Average" "Forcefield"
+
+#
+# Step 0: Forcefield Data Fields
+#
+data_xff
+# ID
+_csp.structure_ranking.software_citation https://doi.org/10.1021/acs.cgd.8b01098
+_forcefield.name "XFF"
+
+# Intramolecular terms
+_forcefield.intramolecular_term "Bonded-Parameters"
+_forcefield.bond_type "Quadratic Potential"
+_forcefield.angle_type "Quadratic Potential"
+_forcefield.improper_type "Harmonic"
+_forcefield.dihedral_type "Fourier Series"
+_forcefield.cross_terms [ "Bond-Bond" "Bond-Angle"]
+
+# Intermolecular terms
+_forcefield.electrostatic_term "Point-Charges"
+_forcefield.point_charges_generation "RESP"
+_forcefield.vdw_term "LJ(12,6)"
+_forcefield.hb_correction "LJ(10,6)"
+_forcefield.lone_pairs_correction "Custom"
+
+# Parametrisation Details
+_forcefield.parameterization_method "Fitting to Crystals Subset"
+_forcefield.qm_parameterization_functional "optPBE-vdW"
+
+#
+# Step 1: Semi-Empirical Data Fields
+#
+data_dftb
+_csp.structure_ranking.software_citation https://doi.org/10.1063/1.5143190
+_semiempirical.method DFTB3
+
+#
+# Step 2: DFT Data Fields
+#
+data_pbe0
+_csp.structure_ranking.software_citation https://doi.org/10.1103/PhysRevB.59.1758
+_csp.structure_ranking.software_version 5.4.4
+
+_dft.exchange_correlation_functional_type "Hybrid"
+_dft.exchange_correlation_functional_name "PBE0"
+_dft.basis_set_type "PAW"
+_dft.dispersion_correction "MBD"
+
+_dft.kinetic_energy_cutoff_wavefunctions 600
+_dft.atom_relax_force_conv 0.002
+_dft.BZ_integration_method "Monkhorst-Pack"
+_dft.BZ_integration_grid_dens_X 0.5
+_dft.BZ_integration_grid_dens_Y 0.5
+_dft.BZ_integration_grid_dens_Z 0.5
+
+#
+# Step 3: Free Energy Data Fields
+#
+data_free
+_csp.structure_ranking.software_citation https://doi.org/10.1021/acs.cgd.0c00422
+_free_energy.method "PSCP"
+_free_energy.temperature_list [ 100 150 200 250 300 350 ]
+
+#
+# Output Structures 
+#   (Values and structures are randomly generated, just for visual purpose)
+
+# Structure Step 0
+data_A_0
+_csp.structure_ranking.stage 0
+_csp.structure_ranking.stage_id xff
+_csp.structure_properties.temperature 0
+_csp.structure_properties.relative_lattice_energy 5.0
+_csp.structure_properties.rank 25 
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   16.9739
+_cell.length_b                   7.0834
+_cell.length_c                   14.6835
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1596.37
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.401368 0.48769 0.840507
+C_01 C 0.38668 0.68021 0.790731
+H_02 H 0.371115 0.376585 0.784193
+C_03 C 0.290539 0.725965 0.720897
+C_04 C 0.299268 0.78595 0.627355
+O_05 O 0.428762 0.672248 0.716077
+N_06 N 0.373855 0.751504 0.626293
+C_07 C 0.431538 0.842124 0.862643
+H_08 H 0.371907 0.48536 0.894065
+H_09 H 0.471198 0.458057 0.880726
+H_0a H 0.404557 0.853601 0.918512
+H_0b H 0.42105 0.976283 0.821558
+H_0c H 0.501974 0.817009 0.902078
+H_0d H 0.247681 0.60183 0.705736
+H_0e H 0.264825 0.837084 0.752606
+S_0f S 0.217631 0.895587 0.521174
+O_0g O 0.133888 0.838256 0.51667
+O_0h O 0.235896 0.881738 0.433671
+C_0i C 0.229311 1.15725 0.557115
+F_0j F 0.218279 1.16725 0.645649
+F_0k F 0.314036 1.20854 0.581374
+C_0l C 0.161838 1.26789 0.474139
+C_0m C 0.17551 1.34348 0.393565
+C_0n C 0.0771138 1.27765 0.469243
+C_0o C 0.00971527 1.36125 0.386885
+F_0p F 0.256774 1.33643 0.395298
+C_0q C 0.108616 1.42518 0.310499
+C_0r C 0.0252192 1.4325 0.307298
+H_0s H -0.0280979 1.49183 0.241592
+H_0t H -0.055174 1.36697 0.384505
+H_0u H 0.0643043 1.21717 0.52973
+H_0v H 0.121893 1.48067 0.24938
+
+# Structure Step 1
+data_A_1
+_csp.structure_ranking.stage 1
+_csp.structure_ranking.stage_id dftb
+_csp.structure_properties.temperature 0
+_csp.structure_properties.relative_lattice_energy 1.5
+_csp.structure_properties.rank 5 
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   16.8168
+_cell.length_b                   7.0178
+_cell.length_c                   14.5475
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1552.44
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.402802 0.483043 0.842739
+C_01 C 0.387973 0.677363 0.792505
+H_02 H 0.372266 0.3709 0.785899
+C_03 C 0.290934 0.723546 0.722019
+C_04 C 0.299744 0.784092 0.627602
+O_05 O 0.430454 0.669327 0.717154
+N_06 N 0.375029 0.749323 0.62653
+C_07 C 0.433253 0.840791 0.865082
+H_08 H 0.373059 0.480692 0.896797
+H_09 H 0.473281 0.453133 0.883342
+H_0a H 0.406023 0.852375 0.921481
+H_0b H 0.422667 0.976203 0.823613
+H_0c H 0.504341 0.815441 0.904886
+H_0d H 0.247676 0.59825 0.706716
+H_0e H 0.264985 0.835703 0.754024
+S_0f S 0.217342 0.894753 0.52042
+O_0g O 0.132826 0.836886 0.515882
+O_0h O 0.235781 0.880775 0.432108
+C_0i C 0.22914 1.15888 0.556705
+F_0j F 0.218005 1.16897 0.646067
+F_0k F 0.314654 1.21064 0.581184
+C_0l C 0.161031 1.27054 0.472953
+C_0m C 0.174831 1.34683 0.391627
+C_0n C 0.0755211 1.2804 0.468012
+C_0o C 0.00748411 1.36477 0.384876
+F_0p F 0.256854 1.33974 0.393375
+C_0q C 0.107309 1.42929 0.307776
+C_0r C 0.0231417 1.4367 0.304553
+H_0s H -0.0306764 1.49657 0.238225
+H_0t H -0.0580026 1.37054 0.382481
+H_0u H 0.062589 1.21934 0.529056
+H_0v H 0.120713 1.48531 0.246093
+
+# Structure Step 2
+data_A_2
+_csp.structure_ranking.stage 2
+_csp.structure_ranking.stage_id pbe0
+_csp.structure_properties.temperature 0
+_csp.structure_properties.relative_lattice_energy 0.0
+_csp.structure_properties.rank 1 
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 -x,-y,-z
+2 -x,1/2+y,1/2-z
+3 x,1/2-y,1/2+z
+4 x,y,z
+_cell.length_a                   15.71661389
+_cell.length_b                   6.55869406
+_cell.length_c                   13.59582107
+_cell.angle_alpha                90.00000000
+_cell.angle_beta                 115.27946990
+_cell.angle_gamma                90.00000000
+_cell.volume                     1267.25
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.41364300 0.44795100 0.85964000
+C_01 C 0.39778100 0.65587400 0.80588900
+H_02 H 0.38097100 0.32796000 0.79882200
+C_03 C 0.29394700 0.70528900 0.73046700
+C_04 C 0.30337300 0.77007600 0.62944000
+O_05 O 0.44323100 0.64727600 0.72526200
+N_06 N 0.38392800 0.73286900 0.62829100
+C_07 C 0.44622800 0.83073800 0.88354800
+H_08 H 0.38182100 0.44543800 0.91748300
+H_09 H 0.48906000 0.41594400 0.90308300
+H_0a H 0.41709000 0.84313600 0.94389100
+H_0b H 0.43490000 0.97563500 0.83917600
+H_0c H 0.52229400 0.80361300 0.92613700
+H_0d H 0.24766300 0.57122400 0.71409300
+H_0e H 0.26617900 0.82529900 0.76470800
+S_0f S 0.21520400 0.88848300 0.51476000
+O_0g O 0.12476800 0.82656100 0.50990200
+O_0h O 0.23493400 0.87352300 0.42026300
+C_0i C 0.22782400 1.17108800 0.55357900
+F_0j F 0.21591100 1.18188300 0.64919800
+F_0k F 0.31932500 1.22647500 0.57977700
+C_0l C 0.15495000 1.29057100 0.46396900
+C_0m C 0.16971700 1.37220600 0.37694600
+C_0n C 0.06345200 1.30111400 0.45868200
+C_0o C -0.00934400 1.39140200 0.36972800
+F_0p F 0.25748200 1.36460200 0.37881700
+C_0q C 0.09746900 1.46043800 0.28723200
+C_0r C 0.00740400 1.46835900 0.28377700
+H_0s H -0.05017700 1.53242300 0.21281200
+H_0t H -0.07941800 1.39757400 0.36716000
+H_0u H 0.04961700 1.23578900 0.52400100
+H_0v H 0.11181100 1.52037300 0.22122700
+
+# Structure Step 3 - 100K
+data_A_3_100
+_csp.structure_ranking.stage 2
+_csp.structure_ranking.stage_id free
+_csp.structure_properties.temperature 100
+_csp.structure_properties.relative_lattice_energy 0.0
+_csp.structure_properties.rank 1 
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   16.0309
+_cell.length_b                   6.6899
+_cell.length_c                   13.8677
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1344.82
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.410394 0.458467 0.854576
+C_01 C 0.394845 0.662312 0.801879
+H_02 H 0.378362 0.340827 0.794949
+C_03 C 0.293049 0.710758 0.727938
+C_04 C 0.302284 0.774272 0.628892
+O_05 O 0.439402 0.653881 0.722834
+N_06 N 0.381263 0.737799 0.62776
+C_07 C 0.442339 0.833749 0.878014
+H_08 H 0.379193 0.456001 0.911284
+H_09 H 0.484335 0.427092 0.897169
+H_0a H 0.413773 0.845902 0.937178
+H_0b H 0.431234 0.975799 0.834512
+H_0c H 0.516918 0.807157 0.919769
+H_0d H 0.24767 0.579321 0.711885
+H_0e H 0.265819 0.828413 0.761504
+S_0f S 0.215843 0.890357 0.516457
+O_0g O 0.127183 0.829654 0.511696
+O_0h O 0.235191 0.875693 0.423815
+C_0i C 0.228219 1.16742 0.55452
+F_0j F 0.216538 1.178 0.648263
+F_0k F 0.317925 1.22172 0.580199
+C_0l C 0.15677 1.28456 0.466663
+C_0m C 0.171254 1.36459 0.38135
+C_0n C 0.0670689 1.29489 0.46148
+C_0o C -0.00429724 1.38341 0.374268
+F_0p F 0.257297 1.35714 0.383184
+C_0q C 0.100421 1.4511 0.293389
+C_0r C 0.0121217 1.45886 0.290008
+H_0s H -0.0443347 1.52167 0.220429
+H_0t H -0.0730035 1.38947 0.371748
+H_0u H 0.0535029 1.23086 0.525516
+H_0v H 0.114482 1.50986 0.228682
+
+# Structure Step 3 - 150K
+data_A_3_150
+_csp.structure_ranking.stage 2
+_csp.structure_ranking.stage_id free
+_csp.structure_properties.temperature 150
+_csp.structure_properties.relative_lattice_energy 0.0
+_csp.structure_properties.rank 1 
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   16.3453
+_cell.length_b                   6.821
+_cell.length_c                   14.1396
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1425.47
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.407269 0.468582 0.849711
+C_01 C 0.392019 0.668509 0.798027
+H_02 H 0.375853 0.353203 0.791231
+C_03 C 0.292178 0.716024 0.7255
+C_04 C 0.301242 0.778332 0.628359
+O_05 O 0.435716 0.66024 0.720494
+N_06 N 0.378698 0.742545 0.627256
+C_07 C 0.438599 0.836652 0.872698
+H_08 H 0.376668 0.466163 0.905328
+H_09 H 0.479784 0.43781 0.891477
+H_0a H 0.41058 0.848571 0.930716
+H_0b H 0.427708 0.975971 0.830032
+H_0c H 0.511744 0.81057 0.91365
+H_0d H 0.247672 0.587113 0.709756
+H_0e H 0.265474 0.831418 0.758428
+S_0f S 0.216466 0.892171 0.518094
+O_0g O 0.129503 0.832635 0.513416
+O_0h O 0.235433 0.877789 0.427225
+C_0i C 0.228595 1.16392 0.555417
+F_0j F 0.217139 1.1743 0.647357
+F_0k F 0.316579 1.21717 0.58061
+C_0l C 0.158521 1.2788 0.469249
+C_0m C 0.172725 1.35729 0.385577
+C_0n C 0.0705476 1.28895 0.464173
+C_0o C 0.000554209 1.37575 0.378639
+F_0p F 0.257114 1.34999 0.387376
+C_0q C 0.103259 1.44213 0.299315
+C_0r C 0.0166544 1.44976 0.295991
+H_0s H -0.0387132 1.51136 0.227758
+H_0t H -0.0668305 1.38169 0.376168
+H_0u H 0.0572426 1.22613 0.526979
+H_0v H 0.117046 1.49977 0.235845
+
+
+# Structure Step 3 - 200K
+data_A_3_200
+_csp.structure_ranking.stage 2
+_csp.structure_ranking.stage_id free
+_csp.structure_properties.temperature 200
+_csp.structure_properties.relative_lattice_energy 0.0
+_csp.structure_properties.rank 1
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   16.6596
+_cell.length_b                   6.9522
+_cell.length_c                   14.4115
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1509.31
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.404261 0.478323 0.845021
+C_01 C 0.389299 0.674477 0.794313
+H_02 H 0.373438 0.365122 0.787644
+C_03 C 0.291345 0.721095 0.723162
+C_04 C 0.300238 0.782213 0.627853
+O_05 O 0.432175 0.666365 0.71825
+N_06 N 0.376229 0.747116 0.626764
+C_07 C 0.435 0.839432 0.867574
+H_08 H 0.374244 0.47595 0.899589
+H_09 H 0.475412 0.448117 0.886007
+H_0a H 0.407513 0.851141 0.924506
+H_0b H 0.424315 0.976137 0.825714
+H_0c H 0.506765 0.813843 0.907754
+H_0d H 0.247678 0.594618 0.707714
+H_0e H 0.265142 0.834311 0.755461
+S_0f S 0.217058 0.893918 0.519661
+O_0g O 0.131738 0.835491 0.515079
+O_0h O 0.23567 0.879808 0.430514
+C_0i C 0.228959 1.16052 0.55628
+F_0j F 0.217721 1.17071 0.646493
+F_0k F 0.315282 1.21278 0.580997
+C_0l C 0.160215 1.27324 0.471746
+C_0m C 0.174143 1.35026 0.389644
+C_0n C 0.0738927 1.28319 0.466758
+C_0o C 0.00521974 1.36837 0.382837
+F_0p F 0.256942 1.34309 0.391416
+C_0q C 0.105986 1.4335 0.30501
+C_0r C 0.0210162 1.44097 0.301748
+H_0s H -0.0333068 1.50141 0.234802
+H_0t H -0.0608937 1.37418 0.380412
+H_0u H 0.0608386 1.22156 0.528378
+H_0v H 0.119517 1.49003 0.242745
+
+# Structure Step 3 - 250K
+data_A_3_250
+_csp.structure_ranking.stage 2
+_csp.structure_ranking.stage_id free
+_csp.structure_properties.temperature 250
+_csp.structure_properties.relative_lattice_energy 0.0
+_csp.structure_properties.rank 1 
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   16.9739
+_cell.length_b                   7.0834
+_cell.length_c                   14.6835
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1596.37
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.401368 0.48769 0.840507
+C_01 C 0.38668 0.68021 0.790731
+H_02 H 0.371115 0.376585 0.784193
+C_03 C 0.290539 0.725965 0.720897
+C_04 C 0.299268 0.78595 0.627355
+O_05 O 0.428762 0.672248 0.716077
+N_06 N 0.373855 0.751504 0.626293
+C_07 C 0.431538 0.842124 0.862643
+H_08 H 0.371907 0.48536 0.894065
+H_09 H 0.471198 0.458057 0.880726
+H_0a H 0.404557 0.853601 0.918512
+H_0b H 0.42105 0.976283 0.821558
+H_0c H 0.501974 0.817009 0.902078
+H_0d H 0.247681 0.60183 0.705736
+H_0e H 0.264825 0.837084 0.752606
+S_0f S 0.217631 0.895587 0.521174
+O_0g O 0.133888 0.838256 0.51667
+O_0h O 0.235896 0.881738 0.433671
+C_0i C 0.229311 1.15725 0.557115
+F_0j F 0.218279 1.16725 0.645649
+F_0k F 0.314036 1.20854 0.581374
+C_0l C 0.161838 1.26789 0.474139
+C_0m C 0.17551 1.34348 0.393565
+C_0n C 0.0771138 1.27765 0.469243
+C_0o C 0.00971527 1.36125 0.386885
+F_0p F 0.256774 1.33643 0.395298
+C_0q C 0.108616 1.42518 0.310499
+C_0r C 0.0252192 1.4325 0.307298
+H_0s H -0.0280979 1.49183 0.241592
+H_0t H -0.055174 1.36697 0.384505
+H_0u H 0.0643043 1.21717 0.52973
+H_0v H 0.121893 1.48067 0.24938
+
+# Structure Step 3 - 300K
+data_A_3_300
+_csp.structure_ranking.stage 2
+_csp.structure_ranking.stage_id free
+_csp.structure_properties.temperature 300
+_csp.structure_properties.relative_lattice_energy 0.0
+_csp.structure_properties.rank 1 
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   17.2883
+_cell.length_b                   7.2146
+_cell.length_c                   14.9554
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1686.72
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.398575 0.496715 0.836156
+C_01 C 0.384156 0.685734 0.787291
+H_02 H 0.368872 0.387631 0.780865
+C_03 C 0.289764 0.730657 0.718728
+C_04 C 0.298334 0.789552 0.626886
+O_05 O 0.425473 0.677917 0.713995
+N_06 N 0.371562 0.755731 0.625836
+C_07 C 0.428196 0.844704 0.857889
+H_08 H 0.369649 0.494428 0.888739
+H_09 H 0.467138 0.467621 0.875651
+H_0a H 0.401708 0.855973 0.91275
+H_0b H 0.417899 0.976423 0.81755
+H_0c H 0.497351 0.820045 0.896607
+H_0d H 0.247686 0.608779 0.703842
+H_0e H 0.264515 0.839755 0.749852
+S_0f S 0.218179 0.897195 0.522628
+O_0g O 0.135962 0.840906 0.518213
+O_0h O 0.236115 0.883597 0.436723
+C_0i C 0.229647 1.15412 0.557915
+F_0j F 0.218818 1.16393 0.644847
+F_0k F 0.312831 1.20446 0.581734
+C_0l C 0.163403 1.26273 0.476455
+C_0m C 0.176825 1.33694 0.397339
+C_0n C 0.0802201 1.27232 0.471649
+C_0o C 0.0140445 1.35439 0.39078
+F_0p F 0.25661 1.33004 0.39904
+C_0q C 0.111147 1.41715 0.315783
+C_0r C 0.0292665 1.42436 0.31264
+H_0s H -0.023081 1.48259 0.248129
+H_0t H -0.0496646 1.36001 0.388444
+H_0u H 0.0676408 1.21293 0.531028
+H_0v H 0.124185 1.47164 0.255783
+
+# Structure Step 3 - 350K
+data_A_3_350
+_csp.structure_ranking.stage 2
+_csp.structure_ranking.stage_id free
+_csp.structure_properties.temperature 350
+_csp.structure_properties.relative_lattice_energy 0.0
+_csp.structure_properties.rank 1
+
+_symmetry.cell_setting           monoclinic
+_symmetry.space_group_name_H-M   'P 21/c'
+_symmetry.Int_Tables_number      14
+_space_group_name_Hall           '-P 2ybc'
+loop_
+_symmetry.equiv_pos_site_id
+_symmetry.equiv_pos_as_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+_cell.length_a                   17.6026
+_cell.length_b                   7.3457
+_cell.length_c                   15.2273
+_cell.angle_alpha                90
+_cell.angle_beta                 115.28
+_cell.angle_gamma                90
+_cell.volume                     1780.39
+loop_
+_atom.site_label
+_atom.site_type_symbol
+_atom.site_fract_x
+_atom.site_fract_y
+_atom.site_fract_z
+C_00 C 0.395884 0.505425 0.831959
+C_01 C 0.381723 0.691085 0.783968
+H_02 H 0.366714 0.398301 0.777664
+C_03 C 0.289016 0.735192 0.716628
+C_04 C 0.297433 0.793049 0.626426
+O_05 O 0.422302 0.683407 0.71198
+N_06 N 0.369356 0.759819 0.625402
+C_07 C 0.424978 0.847203 0.853311
+H_08 H 0.367477 0.503192 0.883611
+H_09 H 0.463222 0.47685 0.870749
+H_0a H 0.398961 0.858271 0.907186
+H_0b H 0.414865 0.976585 0.813694
+H_0c H 0.492896 0.822985 0.891331
+H_0d H 0.247689 0.615503 0.702009
+H_0e H 0.264225 0.842357 0.747204
+S_0f S 0.218712 0.898771 0.524037
+O_0g O 0.13796 0.843473 0.519694
+O_0h O 0.236324 0.885402 0.43966
+C_0i C 0.229975 1.1511 0.558694
+F_0j F 0.219337 1.16073 0.644067
+F_0k F 0.311674 1.20054 0.582088
+C_0l C 0.164911 1.25777 0.478682
+C_0m C 0.178095 1.33067 0.400986
+C_0n C 0.0832133 1.26719 0.473961
+C_0o C 0.0182219 1.34781 0.394544
+F_0p F 0.256457 1.32388 0.402656
+C_0q C 0.11359 1.40944 0.320886
+C_0r C 0.0331721 1.41652 0.317799
+H_0s H -0.0182407 1.47372 0.25444
+H_0t H -0.044344 1.35331 0.392249
+H_0u H 0.0708612 1.20886 0.532287
+H_0v H 0.126393 1.46295 0.26195

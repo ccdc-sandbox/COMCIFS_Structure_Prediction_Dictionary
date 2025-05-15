@@ -19,6 +19,7 @@ Category `_csp_structure_generation_[]`: Category for structure generation metho
 |----------------------|-------------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
 | Structure Generation | `space_group_number_list`                 | char/numb/list | Space group selection could be “all” or a subset (list) specifying which spacegroups were used.                                                     |                       |                     |                                                                                                                                                 |
 | Structure Generation | `method`                                  | char           | Structure generation method.                                                                                                                        |                       |                     | - Evolutionary Algorithm <br>- Particle Swarm Optimisation <br>- Simulated Annealing <br>- Monte Carlo Parallel tempering <br>- Random Sampling |
+| Structure Generation | `software`                                | char           | Name of the software used for structure generation.                                                                                                 |                       |                     |                                                                                                                                                 |
 | Structure Generation | `software_citation`                       | char           | Details of the software used for structure generation.                                                                                              |                       |                     |                                                                                                                                                 |
 | Structure Generation | `software_version`                        | char           | Version of software used for structure generation.                                                                                                  |                       |                     |                                                                                                                                                 |
 | Structure Generation | `density_lower_limit`                     | numb           | Minimum Cell Density                                                                                                                                | 0.0:                  | kg m<sup>-3</sup>   | 800                                                                                                                                             |
@@ -175,19 +176,21 @@ these fields to be used, the `_csp_ranking_method` should be set to "ML Potentia
 
 Category `_csp_free_energy_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials.
 
-| Category    | Data Field | Type | Definition                                                          | Constraints | Units | Example |
-|:------------|:-----------|:-----|:--------------------------------------------------------------------|:------------|:------|:--------|
-| Free Energy | `method`   | char | Specifies the name of the approach used to calculate free energies. |             |       | HA, QHA |
+| Category    | Data Field          | Type | Definition                                                          | Constraints | Units | Example           |
+|:------------|:--------------------|:-----|:--------------------------------------------------------------------|:------------|:------|:------------------|
+| Free Energy | `method`            | char | Specifies the name of the approach used to calculate free energies. |             |       | HA, QHA           |
+| Free Energy | `temperatures_list` | list | The temperatures at which Free energies are calculated              | >0          | K     | [ 100, 200, 300 ] |
 
 ## Single Output Structure Properties
 
 Describes the structure-specific outputs of CSP methods.
-Category `_csp_ts_properties_[]`
+Category `_csp_structure_properties_[]`
 
 | Category              | Data Field                | Type | Definition                                                                                                                    | Constraints | Units               | Example         |
 |-----------------------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------|-------------|---------------------|-----------------|
 | Theoretical Structure | `temperature`             | numb | The temperature at which the energy and other properties of the theoretical structure were calculated.                        | \>=0        | K                   | 298.15          |
 | Theoretical Structure | `pressure`                | numb | The pressure at which the energy and other properties of the theoretical structure were calculated.                           |             | Pa                  | 101325.0        |
+| Theoretical Structure | `calculated_density`      | numb | The calculated density of the crystal                                                                                         |             |                     |                 |
 | Theoretical Structure | `total_energy`            | numb | The total energy of the theoretical structure.                                                                                |             | kJ mol<sup>-1</sup> | -1500.5         |
 | Theoretical Structure | `absolute_free_energy`    | numb | The absolute free energy of the crystal.                                                                                      |             | kJ mol<sup>-1</sup> | -1450.2         |
 | Theoretical Structure | `absolute_lattice_energy` | numb | The absolute lattice energy of the crystal.                                                                                   |             | kJ mol<sup>-1</sup> | -1600.8         |
