@@ -1,13 +1,13 @@
 # CSP Core Dictionary
 
-## Input System Fields
+## Input Chemical System
 
 | Category | Data Field     | Type | Definition                                                                                                                                                                       | Constraints | Units | Example |
 |----------|----------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|-------|---------|
 | Chemical | `name`         | char | See name_common and name_systematic from Core CIF dictionary.                                                                                                                    |             |       |         |
-| Chemical | `formula`      | char | Need to decide which from Core CIF dictionary are appropriate for describing a component and which for describing overall structure (moiety vs sum - also IUPAC and structural). |             |       |         |
+| Chemical | `formula`      | char | Require moiety formula which seperates out discrete components. <br><br>Other formula fields can be optionally provided. |             |       |         |
 | Chemical | `identifier`   | char | InChI / InChI Key / InChI Version.                                                                                                                                               |             |       |         |
-| Chemical | `connectivity` | char | Potentially using existing chemical_conn data items. <br> Might also want to capture SMILES or a MOL file representation.                                                        |             |       |         |
+| Chemical | `connectivity` | char | Encourage use of chemical_conn data items. <br><br> Might also want to capture SMILES or a MOL file representation - these would require new fields.                                                        |             |       |         |
 
 ## Structure Generation Methods
 
