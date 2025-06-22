@@ -1,6 +1,56 @@
 # CSP Core Dictionary
 
-## Input System Fields
+## Introduction
+
+### Summary
+
+This is the CSP dictionary for describing predicted crystal structures and the methods, parameters and workflows used to
+calculate these.
+It is divided into 4 main sections:
+
+* **Input Chemical System** describing the input atoms or molecules.
+* **Structure Generation Methods** describing the workflow used to generate theoretical crystal structures.
+* **Structure Ranking Methods** describing the energy evaluation models of the generated structures.
+* **Output Structure Properties** for describing the properties of each output structure.
+
+### Conventions
+
+A few conventions are adopted in the description of specific data fields as highlighted in the table below. Except for
+*pDFT*, full names are preferred.
+
+| Category             | Data Field | Suggested Input Item   | Alternatives to avoid                                       |
+|----------------------|------------|------------------------|-------------------------------------------------------------|
+| Structure Generation | `method`   | Random Sampling        | Quasirandom, Pseudorandom (specified in separate datafield) |
+| Structure Generation | `method`   | Evolutionary Algorithm | Genetic Algorithm, EA, GA                                   |
+| Structure Ranking    | `method`   | Forcefield             | Force Field, Force-Field, FF                                |
+| Structure Ranking    | `method`   | pDFT                   | DFT, Density Functional Theory, periodic-DFT                |
+| Structure Ranking    | `method`   | Semi-Empirical         | Semi Empirical                                              |
+
+In addition, the Structure Ranking `method` "ML Potential" refers to methods using *ad hoc* descriptors for neural
+network training to directly compute energy and forces.
+On the other hand, ML models used to parameterize models constants should be classified in the related method.
+For example, forcefield constants parametrised with a ML network should be classified as "Forcefield".
+
+### Missing Sections
+
+A few areas relevant to CSP have not been explored yet and might be included in later updates of the dictionary.
+In general, new or specific methods can use the "Other" option and specify possible publications describing the
+workflow.
+
+A list of missing section is shown below:
+
+* Initial molecule (or list of molecules and conformers) coordinates and properties.
+* ML-based Structure Generation methods.
+* Clustering algorithms used to remove duplicates.
+* While the TCOD dictionary is available for DFT methods and a draft dictionary for forcefield methods is being
+  developed, datafields of other energy evaluation methods are limited to basic identification labels. This includes:
+    * Semi-Empirical methods
+    * ML Potentials
+    * Free energy correction methods
+* Output structure properties are limited to the energy or score of the crystal. Other measurable properties (the band
+  gap for example) are not currently included.
+
+## Input Chemical System
 
 | Category | Data Field     | Type | Definition                                                                                                                                                                       | Constraints | Units | Example |
 |----------|----------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|-------|---------|
@@ -15,32 +65,33 @@
 
 Category `_csp_structure_generation_[]`: Category for structure generation methods.
 
-| Category             | Data Field                                | Type           | Definition                                                                                                                                          | Constraints           | Units               | Example                                                                                                                                         |
-|----------------------|-------------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| Structure Generation | `space_group_number_list`                 | char/numb/list | Space group selection could be “all” or a subset (list) specifying which spacegroups were used.                                                     |                       |                     |                                                                                                                                                 |
-| Structure Generation | `method`                                  | char           | Structure generation method.                                                                                                                        |                       |                     | - Evolutionary Algorithm <br>- Particle Swarm Optimisation <br>- Simulated Annealing <br>- Monte Carlo Parallel tempering <br>- Random Sampling |
-| Structure Generation | `software`                                | char           | Name of the software used for structure generation.                                                                                                 |                       |                     |                                                                                                                                                 |
-| Structure Generation | `software_citation`                       | char           | Details of the software used for structure generation.                                                                                              |                       |                     |                                                                                                                                                 |
-| Structure Generation | `software_version`                        | char           | Version of software used for structure generation.                                                                                                  |                       |                     |                                                                                                                                                 |
-| Structure Generation | `density_lower_limit`                     | numb           | Minimum Cell Density                                                                                                                                | 0.0:                  | kg m<sup>-3</sup>   | 800                                                                                                                                             |
-| Structure Generation | `density_upper_limit`                     | numb           | Maximum Cell Density                                                                                                                                | 0.0:                  | kg m<sup>-3</sup>   | 1400                                                                                                                                            |
-| Structure Generation | `composition_calculation`                 | char           | "fixed" or "variable" composition calculation                                                                                                       | "fixed" or "variable" |                     |                                                                                                                                                 |
-| Structure Generation | `group_label`                             | numb           | Label used to identify a group of atoms                                                                                                             |                       |                     | "MOL1"                                                                                                                                          |
-| Structure Generation | `group_atoms`                             | list           | List of atoms belonging to a specific group                                                                                                         |                       |                     | "C1 C2 H1 H2"                                                                                                                                   |
-| Structure Generation | `maximum_number_of_components`            | numb           | The maximum number of components (atoms or molecules) in the unit cell                                                                              | 1:                    |                     | 4                                                                                                                                               |
-| Structure Generation | `minimum_number_of_components`            | numb           | The minimum number of components (atoms or molecules) in the unit cell                                                                              | 0:                    |                     | 0                                                                                                                                               |
-| Structure Generation | `composition_types`                       | list           | List of atomtypes or groups defining the composition                                                                                                |                       |                     | "Mg O" "Benzene water"                                                                                                                          |
-| Structure Generation | `composition_coefficients`                | list           | List of possible compositions for fixed-composition calculations or extremes for variable-composition simulations                                   |                       |                     | "1 1" "2 1"                                                                                                                                     |
-| Structure Generation | `stopping_criteria`                       | char/list      | List of rules for stopping the generation of new structures.                                                                                        |                       |                     | "Max Structures", "Low-Energy Structures Unchanged"                                                                                             |
-| Structure Generation | `stopping_max_structures_evaluated`       | numb           | The maximum total number of unique crystal structures that will be generated and evaluated during the search.                                       | >0                    |                     | 10000                                                                                                                                           |
-| Structure Generation | `stopping_iterations_without_improvement` | numb           | The maximum number of consecutive iterations (generations, MC steps, etc.) where the global minimum (or the lowest few structures) does not change. | >0                    |                     | 50                                                                                                                                              |
-| Structure Generation | `stopping_energy_range`                   | numb           | An energy threshold for the selection of low-energy structures to be considering in the convergence criteria.                                       | >0                    | kJ mol<sup>-1</sup> | 5                                                                                                                                               |
-| Structure Generation | `stopping_structures_range`               | numb           | The number of low-energy structures to be considering in the convergence criteria.                                                                  | >0                    |                     | 1000                                                                                                                                            |
+| Category             | Data Field                                | Type           | Definition                                                                                                                                          | Constraints           | Units               | Example                                                                                                                                                     |
+|----------------------|-------------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Structure Generation | `space_group_number_list`                 | char/numb/list | Space group selection could be “all” or a subset (list) specifying which spacegroups were used.                                                     |                       |                     |                                                                                                                                                             |
+| Structure Generation | `method`                                  | char/list      | Structure generation method or list of methods.                                                                                                     |                       |                     | - Evolutionary Algorithm <br>- Particle Swarm Optimisation <br>- Simulated Annealing <br>- Monte Carlo Parallel tempering <br>- Random Sampling <br>- Other |
+| Structure Generation | `software`                                | char           | Name of the software used for structure generation.                                                                                                 |                       |                     |                                                                                                                                                             |
+| Structure Generation | `software_citation`                       | char           | Details of the software used for structure generation.                                                                                              |                       |                     |                                                                                                                                                             |
+| Structure Generation | `software_version`                        | char           | Version of software used for structure generation.                                                                                                  |                       |                     |                                                                                                                                                             |
+| Structure Generation | `density_lower_limit`                     | numb           | Minimum Cell Density                                                                                                                                | 0.0:                  | kg m<sup>-3</sup>   | 800                                                                                                                                                         |
+| Structure Generation | `density_upper_limit`                     | numb           | Maximum Cell Density                                                                                                                                | 0.0:                  | kg m<sup>-3</sup>   | 1400                                                                                                                                                        |
+| Structure Generation | `composition_calculation`                 | char           | "fixed" or "variable" composition calculation                                                                                                       | "fixed" or "variable" |                     |                                                                                                                                                             |
+| Structure Generation | `group_label`                             | numb           | Label used to identify a group of atoms                                                                                                             |                       |                     | "MOL1"                                                                                                                                                      |
+| Structure Generation | `group_atoms`                             | list           | List of atoms belonging to a specific group                                                                                                         |                       |                     | "C1 C2 H1 H2"                                                                                                                                               |
+| Structure Generation | `maximum_number_of_components`            | numb           | The maximum number of components (atoms or molecules) in the unit cell                                                                              | 1:                    |                     | 4                                                                                                                                                           |
+| Structure Generation | `minimum_number_of_components`            | numb           | The minimum number of components (atoms or molecules) in the unit cell                                                                              | 0:                    |                     | 0                                                                                                                                                           |
+| Structure Generation | `composition_types`                       | list           | List of atomtypes or groups defining the composition                                                                                                |                       |                     | "Mg O" "Benzene water"                                                                                                                                      |
+| Structure Generation | `composition_coefficients`                | list           | List of possible compositions for fixed-composition calculations or extremes for variable-composition simulations                                   |                       |                     | "1 1" "2 1"                                                                                                                                                 |
+| Structure Generation | `stopping_criteria`                       | char/list      | List of rules for stopping the generation of new structures.                                                                                        |                       |                     | "Max Structures", "Low-Energy Structures Unchanged"                                                                                                         |
+| Structure Generation | `stopping_max_structures_evaluated`       | numb           | The maximum total number of unique crystal structures that will be generated and evaluated during the search.                                       | >0                    |                     | 10000                                                                                                                                                       |
+| Structure Generation | `stopping_iterations_without_improvement` | numb           | The maximum number of consecutive iterations (generations, MC steps, etc.) where the global minimum (or the lowest few structures) does not change. | >0                    |                     | 50                                                                                                                                                          |
+| Structure Generation | `stopping_energy_range`                   | numb           | An energy threshold for the selection of low-energy structures to be considering in the convergence criteria.                                       | >0                    | kJ mol<sup>-1</sup> | 5                                                                                                                                                           |
+| Structure Generation | `stopping_structures_range`               | numb           | The number of low-energy structures to be considering in the convergence criteria.                                                                  | >0                    |                     | 1000                                                                                                                                                        |
 
 ### Evolutionary Algorithms
 
-Category `_csp_ea_[]`: Sub group for CSP Structure Generation methods that use Evolutionary Algorithms. For these fields
-to be used, the `_csp_structure_generation_method` must be set to "Evolutionary Algorithm".
+Category `_csp_evolutionary_algorithm_[]`: Sub group for CSP Structure Generation methods that use Evolutionary
+Algorithms. For these fields
+to be used, the `_csp_structure_generation_method` must include "Evolutionary Algorithm".
 
 | Category                | Data Field                    | Type | Definition                                                                                                                                                     | Constraints | Units | Example |
 |:------------------------|:------------------------------|:-----|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -55,8 +106,9 @@ to be used, the `_csp_structure_generation_method` must be set to "Evolutionary 
 
 ### Particle Swarm Optimisation Algorithms
 
-Category `_csp_pso_[]`: Sub group for CSP Structure Generation methods that use Particle Swarm Optimisation. For these
-fields to be used, the `_csp_structure_generation_method` must be set to "Particle Swarm Optimisation".
+Category `_csp_particle_swarm_optimisation_[]`: Sub group for CSP Structure Generation methods that use Particle Swarm
+Optimisation. For these
+fields to be used, the `_csp_structure_generation_method` must include "Particle Swarm Optimisation".
 
 | Category                    | Data Field              | Type | Definition                                                                                                                                        | Constraints | Units | Example |
 |:----------------------------|:------------------------|:-----|:--------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -71,8 +123,9 @@ fields to be used, the `_csp_structure_generation_method` must be set to "Partic
 
 ### Simulated Annealing
 
-Category `_csp_sa_[]`: Sub group for CSP Structure Generation methods that use Simulated Annealing. For these fields to
-be used, the `_csp_structure_generation_method` must be set to "Simulated Annealing".
+Category `_csp_simulated_annealing_[]`: Sub group for CSP Structure Generation methods that use Simulated Annealing. For
+these fields to
+be used, the `_csp_structure_generation_method` must include "Simulated Annealing".
 
 | Category            | Data Field            | Type | Definition                                                                                       | Constraints | Units | Example |
 |:--------------------|:----------------------|:-----|:-------------------------------------------------------------------------------------------------|:------------|:------|:--------|
@@ -82,7 +135,8 @@ be used, the `_csp_structure_generation_method` must be set to "Simulated Anneal
 
 ### Monte Carlo Parallel Tempering
 
-Category `_csp_mcpt_[]`: Sub group for CSP Structure Generation methods that use Monte Carlo Parallel tempering. For
+Category `_csp_monte_carlo_parallel_tempering_[]`: Sub group for CSP Structure Generation methods that use Monte Carlo
+Parallel tempering. For
 these fields to be used, the `_csp_structure_generation_method` must be set to "Monte Carlo Parallel tempering".
 
 | Category                       | Data Field           | Type | Definition                                                                                                              | Constraints                   | Units | Example         |
@@ -96,66 +150,72 @@ these fields to be used, the `_csp_structure_generation_method` must be set to "
 Category `_csp_random_[]`: Sub group for CSP Structure Generation methods that use Random, Quasi-random algorithms. For
 these fields to be used, the `_csp_structure_generation_method` should be set to "Random Sampling".
 
-| Category      | Data Field                 | Type | Definition                                                                                            | Constraints | Units | Example                  |
-|:--------------|:---------------------------|:-----|:------------------------------------------------------------------------------------------------------|:------------|:------|:-------------------------|
-| Random Search | `random_numbers_algorithm` | char | Specifies the type of random algorithm used.                                                          | N/A         |       | "Simple Random", "Sobol" |
-| Random Search | `number_of_samples`        | numb | The total number of unique crystal structures to be generated and evaluated during the random search. | >0          |       | 5000                     |
+| Category      | Data Field                 | Type | Definition                                                                                            | Constraints | Units | Example                       |
+|:--------------|:---------------------------|:-----|:------------------------------------------------------------------------------------------------------|:------------|:------|:------------------------------|
+| Random Search | `random_numbers_algorithm` | char | Specifies the type of random algorithm used.                                                          | N/A         |       | "Pseudorandom", "Quasirandom" |
+| Random Search | `number_of_samples`        | numb | The total number of unique crystal structures to be generated and evaluated during the random search. | >0          |       | 5000                          |
 
 ## Structure Ranking Methods (High-level)
 
 ### General Fields
 
-Category `_csp_structure_ranking_[]`: Category for structure ranking methods.
+Category `_csp_structure_ranking_[]`: Category for structure ranking and optimisation methods.
 
-| Category          | Data Field               | Type | Definition                                                                    | Constraints | Units | Example                                                                                      |
-|-------------------|:-------------------------|:-----|:------------------------------------------------------------------------------|:------------|:------|:---------------------------------------------------------------------------------------------|
-| Structure Ranking | `method`                 | char | The energy or scoring model used to rank structures.                          |             |       | - Force Field<br>- Semi-empirical<br>- DFT<br>- Wavefunction<br>- ML Potentials<br>- Other   |
-| Structure Ranking | `calculation_type`       | char | Indicates how atomic positions are changed.                                   |             |       | - Optimisation<br>- Ensemble Average<br>- Single point                                       |
-| Structure Ranking | `optimisation_algorithm` | char | The algorithm used to optimise atomic positions                               |             |       | - BFGS<br>- L-BFGS<br>- Quasi-Newton<br>- FIRE<br>- Steepest Descent<br>- Conjugate Gradient |
-| Structure Ranking | `software_citation`      | char | Details of the software used for structure generation.                        |             |       |                                                                                              |
-| Structure Ranking | `software_version`       | char | Version of software used for structure generation.                            |             |       |                                                                                              |
-| Structure Ranking | `stage`                  | numb | In case of multi-step approaches, the stage of the ranking method.            | >=0         |       | 0                                                                                            |
-| Structure Ranking | `stage_id`               | char | In case of multi-step approaches, the stage identifier of the ranking method. |             |       | FF, PBE, PBE0                                                                                |
+| Category              | Data Field                | Type | Definition                                                                                                                                                                                                                | Constraints | Units | Example                                                                                      |
+|-----------------------|:--------------------------|:-----|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:---------------------------------------------------------------------------------------------|
+| Structure Ranking     | `method`                  | char | The energy or scoring model used to rank structures.                                                                                                                                                                      |             |       | - Forcefield<br>- Semi-Empirical<br>- pDFT<br>- Wavefunction<br>- ML Potentials<br>- Other   |
+| Structure Ranking     | `calculation_type`        | char | Indicates how atomic positions are changed.                                                                                                                                                                               |             |       | - Optimisation<br>- Ensemble Average<br>- Single point                                       |
+| Structure Ranking     | `software_citation`       | char | Details of the software used for structure generation.                                                                                                                                                                    |             |       |                                                                                              |
+| Structure Ranking     | `software_version`        | char | Version of software used for structure generation.                                                                                                                                                                        |             |       |                                                                                              |
+| Structure Ranking     | `stage`                   | numb | In case of multi-step approaches, the stage of the ranking method.                                                                                                                                                        | >=0         |       | 0                                                                                            |
+| Structure Ranking     | `stage_id`                | char | In case of multi-step approaches, the stage identifier of the ranking method.                                                                                                                                             |             |       | FF, PBE, PBE0                                                                                |
+| Geometry Optimisation | `algorithm`               | char | Geometry optimisation algorithm                                                                                                                                                                                           |             |       | - BFGS<br>- L-BFGS<br>- Quasi-Newton<br>- FIRE<br>- Steepest Descent<br>- Conjugate Gradient |
+| Geometry Optimisation | `cell`                    | char | It can be "fixed" for no cell optimisation, "isotropic" or "anisotropic" for cell relaxation calculations.                                                                                                                |             |       |                                                                                              |
+| Geometry Optimisation | `atoms`                   | char | It can be "fixed" for no atoms' position optimisation, "all" for all-atoms geometry optimization, "hydrogens" for optimisation of only H atoms, "non-hydrogens" for non-H atoms or a list of atoms for custom relaxation. |             |       |                                                                                              |
+| Geometry Optimisation | `relax_force_convergence` | numb | Convergence criteria for stopping the geometry optimisation. Present in TCOD as `_dft_atom_relax_force_conv`.                                                                                                             |             |       |                                                                                              |
 
 ### Periodic Density Functional Theory
 
-Category `_csp_dft_[]`: Sub group for CSP Structure Ranking methods that use DFT methods. For these fields to be used,
-the `_csp_ranking_method` should be set to "DFT".
+Category `_dft_[]`: Sub group for CSP Structure Ranking methods that use pDFT methods (the *p* of *pDFT* is removed in `_dft` for consistency with the TCOD Dictionary). For these fields to be used,
+the `_csp_ranking_method` should be set to "pDFT".
 
 | Category | Data Field                             | Type | Definition                                                  | Constraints | Units | Example                                                                                    |
 |:---------|:---------------------------------------|:-----|:------------------------------------------------------------|:------------|:------|:-------------------------------------------------------------------------------------------|
-| DFT      | `exchange_correlation_functional_type` | char | Specifies the type of exchange-correlation functional used. |             |       | LDA, GGA, meta-GGA, Hybrid                                                                 |
-| DFT      | `exchange_correlation_functional_name` | char | Specifies the name of exchange-correlation functional used. |             |       | PBE, PBE0, SCAN                                                                            |
-| DFT      | `basis_set_type`                       | char | Defines the type of basis functions/pseudopoentials used.   |             |       | "Plane-waves", "PAW", "Norm-conserving", "Ultrasoft"                                       |
-| DFT      | `dispersion_correction`                | char | The Van der Waals correction used.                          |             |       | - Grimme-D2<br/>- Grimme-D3<br/>- Tkatchenko-Scheffler<br/>- Many-body dipersion<br/>- XDM |
+| pDFT     | `exchange_correlation_functional_type` | char | Specifies the type of exchange-correlation functional used. |             |       | LDA, GGA, meta-GGA, Hybrid                                                                 |
+| pDFT     | `exchange_correlation_functional_name` | char | Specifies the name of exchange-correlation functional used. |             |       | PBE, PBE0, SCAN                                                                            |
+| pDFT     | `basis_set_type`                       | char | Defines the type of basis functions/pseudopoentials used.   |             |       | "Plane-waves", "PAW", "Norm-conserving", "Ultrasoft"                                       |
+| pDFT     | `dispersion_correction`                | char | The Van der Waals correction used.                          |             |       | - Grimme-D2<br/>- Grimme-D3<br/>- Tkatchenko-Scheffler<br/>- Many-body dipersion<br/>- XDM |
 
 ### Forcefields
 
-Category `_csp_ff_[]`: Sub group for CSP Structure Ranking methods that use forcefield or mixed inter/intra molecular
-methods. For these fields to be used, the `_csp_ranking_method` should be set to "Force Field".
+Category `_forcefield_[]`: Sub group for CSP Structure Ranking methods that use forcefield or mixed inter/intra
+molecular
+methods. For these fields to be used, the `_csp_ranking_method` should be set to "Forcefield".
 
-| Category    | Data Field                       | Type | Definition                                                                                                                     | Constraints | Units | Example                                                                          |
-|-------------|:---------------------------------|:-----|:-------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:---------------------------------------------------------------------------------|
-| Forcefields | `name`                           | char | Name of the force field.                                                                                                       |             |       |                                                                                  |
-| Forcefields | `intramolecular_term`            | char | The energy evaluation method for intra-molecular interactions.                                                                 |             |       | "Bonded Parameters", "Isolated Molecule Energy"                                  |
-| Forcefields | `electrostatic_term`             | char | Functional form of electrostatic interactions                                                                                  |             |       | Point-Charge, Multipoles                                                         |
-| Forcefields | `vdw_term`                       | char | Functional form of van der Waals interactions                                                                                  |             |       | LJ(C6,C12), LJ(epsilon,sigma), Buckingham, ReaxFF Morse-Potential, 14-7 function |
-| Forcefields | `parameterization_method`        | char | Briefly describes the primary method used to derive the force field parameters.                                                | N/A         |       | "Fitting to gas-phase QM data", "Transferable parameters based on atom types"    |
-| Forcefields | `qm_parameterization_functional` | char | The exchange-correlation functional used in the gas-phase quantum mechanical calculations when fitting force field parameters. |             |       | "MP2", "CCSD(T)", "B3LYP"                                                        |
-| Forcefields | `qm_parameterization_basis_set`  | char | The basis set used in the gas-phase quantum mechanical calculations when fitting force field parameters.                       |             |       | "aug-cc-pVTZ", "6-31G(d,p)"                                                      |
+| Category   | Data Field                       | Type | Definition                                                                                                                     | Constraints | Units | Example                                                                          |
+|------------|:---------------------------------|:-----|:-------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:---------------------------------------------------------------------------------|
+| Forcefield | `name`                           | char | Name of the force field.                                                                                                       |             |       |                                                                                  |
+| Forcefield | `intramolecular_term`            | char | The energy evaluation method for intra-molecular interactions.                                                                 |             |       | "Bonded Parameters", "Isolated Molecule Energy"                                  |
+| Forcefield | `electrostatic_term`             | char | Functional form of electrostatic interactions                                                                                  |             |       | Point-Charge, Multipoles                                                         |
+| Forcefield | `vdw_term`                       | char | Functional form of van der Waals interactions                                                                                  |             |       | LJ(C6,C12), LJ(epsilon,sigma), Buckingham, ReaxFF Morse-Potential, 14-7 function |
+| Forcefield | `parameterization_method`        | char | Briefly describes the primary method used to derive the force field parameters.                                                | N/A         |       | "Fitting to gas-phase QM data", "Transferable parameters based on atom types"    |
+| Forcefield | `qm_parameterization_functional` | char | The exchange-correlation functional used in the gas-phase quantum mechanical calculations when fitting force field parameters. |             |       | "MP2", "CCSD(T)", "B3LYP"                                                        |
+| Forcefield | `qm_parameterization_basis_set`  | char | The basis set used in the gas-phase quantum mechanical calculations when fitting force field parameters.                       |             |       | "aug-cc-pVTZ", "6-31G(d,p)"                                                      |
 
-### Semi-empirical
+### Semi-Empirical
 
-Category `_csp_se_[]`: Sub group for CSP Structure Ranking methods that use semi-empirical methods. For these fields to
+Category `_semiempirical_[]`: Sub group for CSP Structure Ranking methods that use Semi-Empirical methods. For these
+fields to
 be used, the `_csp_ranking_method` should be set to "Semi-Empirical".
 
 | Category       | Data Field | Type | Definition                                           | Constraints | Units | Example       |
 |:---------------|:-----------|:-----|:-----------------------------------------------------|:------------|:------|:--------------|
-| Semi-Empirical | `method`   | char | Specifies the name of the Semi-empirical method used |             |       | AM1, PM3, PM6 |
+| Semi-Empirical | `method`   | char | Specifies the name of the Semi-Empirical method used |             |       | AM1, PM3, PM6 |
 
 ### Wavefunction
 
-Category `_csp_wf_[]`: Sub group for CSP Structure Ranking methods that use wavefunctions methods. For these fields to
+Category `_wavefunction_[]`: Sub group for CSP Structure Ranking methods that use wavefunctions methods. For these
+fields to
 be used, the `_csp_ranking_method` should be set to "Wavefunction".
 
 | Category     | Data Field                        | Type | Definition                             | Constraints | Units | Example     |
@@ -165,16 +225,17 @@ be used, the `_csp_ranking_method` should be set to "Wavefunction".
 
 ### ML Potentials
 
-Category `_csp_mlp_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials methods. For
+Category `_ml_potential_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials methods.
+For
 these fields to be used, the `_csp_ranking_method` should be set to "ML Potentials".
 
-| Category      | Data Field | Type | Definition                                                                                                                                 | Constraints | Units | Example             |
-|:--------------|:-----------|:-----|:-------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------------------|
-| SemiEmpirical | `method`   | char | Specifies the name of the ML Potential used. In case of ML parametrisation of classical forcefields, refer to the Forcefields dictionaries |             |       | ANI, Mace, GAP/SOAP |
+| Category     | Data Field | Type | Definition                                                                                                                                 | Constraints | Units | Example             |
+|:-------------|:-----------|:-----|:-------------------------------------------------------------------------------------------------------------------------------------------|:------------|:------|:--------------------|
+| ML Potential | `method`   | char | Specifies the name of the ML Potential used. In case of ML parametrisation of classical forcefields, refer to the Forcefields dictionaries |             |       | ANI, Mace, GAP/SOAP |
 
 ### Free Energy
 
-Category `_csp_free_energy_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials.
+Category `_free_energy_[]`: Sub group for CSP Structure Ranking methods that use machine learning potentials.
 
 | Category    | Data Field          | Type | Definition                                                          | Constraints | Units | Example           |
 |:------------|:--------------------|:-----|:--------------------------------------------------------------------|:------------|:------|:------------------|
@@ -184,7 +245,7 @@ Category `_csp_free_energy_[]`: Sub group for CSP Structure Ranking methods that
 ## Single Output Structure Properties
 
 Describes the structure-specific outputs of CSP methods.
-Category `_csp_structure_properties_[]`
+Category `_structure_properties_[]`
 
 | Category              | Data Field                | Type | Definition                                                                                                                    | Constraints | Units               | Example         |
 |-----------------------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------|-------------|---------------------|-----------------|

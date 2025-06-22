@@ -25,4 +25,4 @@ Note, that the DDLm versions of the dictionaries were generated using an automat
 ## Additional Proposed Fields
 | Category | Data Field                             | Type | Definition                                                  | Constraints | Units | Example                                                                                    |
 |----------|----------------------------------------|------|-------------------------------------------------------------|-------------|-------|--------------------------------------------------------------------------------------------|
-| DFT      | `dispersion_correction`                | char | The Van der Waals correction used.                          |             |       | - Grimme-D2<br/>- Grimme-D3<br/>- Tkatchenko-Scheffler<br/>- Many-body dipersion<br/>- XDM |
+| pDFT     | `dispersion_correction`                | char | The Van der Waals correction used.                          |             |       | - Grimme-D2<br/>- Grimme-D3<br/>- Tkatchenko-Scheffler<br/>- Many-body dipersion<br/>- XDM |

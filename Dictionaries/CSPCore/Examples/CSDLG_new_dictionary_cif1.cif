@@ -76,7 +76,7 @@ _csp_structure_generation_software CSD-Theory              # _ccdc_csp_structure
 _csp_structure_generation_software_version 2022.2.1        # _ccdc_csp_structure_generation_software_version 2022.2.1
 _csp_structure_ranking_stage 0                             # _ccdc_csp_structure_generation_stage F
 _csp_structure_ranking_method 'Forcefield'                 # _ccdc_csp_structure_optimisation_method 'Force Field'
-_forcefield_electrostatic_term 'Buckingham'                # _ccdc_csp_structure_optimisation_force_field_description 'Knowledge based exp-6 potentials trained to reproduce CSD structures'
+_forcefield_electrostatic_term 'Exp-Six'                   # _ccdc_csp_structure_optimisation_force_field_description 'Knowledge based exp-6 potentials trained to reproduce CSD structures'
 _forcefield_parameterization_method "Fitting to CSD"
 _csp_structure_ranking_software CSD-Theory                 # _ccdc_csp_structure_optimisation_software CSD-Theory
 _csp_structure_ranking_software_version 2022.2.1           # _ccdc_csp_structure_optimisation_software_version 2022.2.1
