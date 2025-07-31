@@ -3,10 +3,8 @@
 #     Example 1: Molecular Crystal with Fixed-Compositions
 #
 #######################################################################
-data_Urea_Hydrate
-
+data_CSP_Method_Description
 _csp.input.name Urea_Hydrate
-
 # Molecules
 loop_
     _csp.input_molecule.number
