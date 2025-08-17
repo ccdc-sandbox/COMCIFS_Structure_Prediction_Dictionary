@@ -37,7 +37,7 @@ This repository is organised into:
     * `Forcefields`: A working draft for a dictionary specifically dedicated to describing force-field-based CSP methods
       in detail. We welcome contributions and feedback on this draft.
 
-2. `SharedLandscapes/` This is the public repository for CSP landscapes submitted by researchers. The data here is
+2. `SharedMethods/` This is a public repository for CSP methodologies submitted by researchers. The data here is
    shared openly to foster collaboration and transparency in the field. Our team will use the dictionaries described
    above to curate your submission and ensure it can be properly described.
 
@@ -46,7 +46,7 @@ This repository is organised into:
 We encourage the community to contribute to both the dictionaries and the shared landscapes.
 
 * For Dictionaries: If you believe a data field is missing or a description could be improved, please open an issue or
-  submit a pull request with your suggested changes. Alternatively, write to .
+  submit a pull request with your suggested changes. Alternatively, write to _nfrancia@ccdc.cam.ac.uk_.
 
-* For Landscapes: Please follow the submission guidelines to add your CSP landscape to the
-  `SharedLandscapes/CONTRIBUTING.md` folder.
+* For CSP Methods: Please follow the submission guidelines to add your CSP landscape to the
+  `SharedMethods/CONTRIBUTING.md` folder.
